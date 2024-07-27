@@ -4,7 +4,7 @@
 
 A Helm chartthat allows your easy way to deploy anything-llm. But also allows you to deploy anything-llm with different components like chromadb, nvidia-device-plugin, ollama, and more.
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square)
 
 ![AppVersion: 0.0.5](https://img.shields.io/badge/AppVersion-0.0.5-informational?style=flat-square)
 
@@ -86,6 +86,7 @@ The next section "Requirements" is only required, if you want replace anyrhing-l
 | ingress.hosts | list | `[{"host":"llm.example.com","paths":[{"path":"/","pathType":"Prefix"}]}]` | Ingress hosts. |
 | ingress.tls | list | `[{"hosts":["llm.example.com"],"secretName":"anything-llm-tls"}]` | TLS configuration for ingress. |
 | nvidia-device-plugin.enabled | bool | `false` |  |
+| nvidia-device-plugin.fullnameOverride | string | `"nvidia-device-plugin"` |  |
 | nvidia-device-plugin.nodeSelector."nvidia.com/gpu" | string | `"true"` |  |
 | nvidia-device-plugin.resources.limits."nvidia.com/gpu" | int | `1` |  |
 | nvidia-device-plugin.tolerations[0].effect | string | `"NoSchedule"` |  |

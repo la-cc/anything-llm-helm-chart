@@ -4,7 +4,7 @@
 
 A Helm chartthat allows your easy way to deploy anything-llm. But also allows you to deploy anything-llm with different components like chromadb, nvidia-device-plugin, ollama, and more.
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square)
 
 ![AppVersion: 0.0.5](https://img.shields.io/badge/AppVersion-0.0.5-informational?style=flat-square)
 
@@ -62,7 +62,7 @@ The next section "Requirements" is only required, if you want replace anyrhing-l
 | Repository | Name | Version |
 |------------|------|---------|
 | https://amikos-tech.github.io/chromadb-chart/ | chromadb | 0.1.19 |
-| https://la-cc.github.io/nvidia-device-plugin-helm-chart | nvidia-device-plugin | 0.3.0 |
+| https://la-cc.github.io/nvidia-device-plugin-helm-chart | nvidia-device-plugin | 0.3.2 |
 | https://otwld.github.io/ollama-helm/ | ollama | 0.45.0 |
 
 ## Values

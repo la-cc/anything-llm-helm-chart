@@ -136,6 +136,7 @@ ollama:
 ###### NVIDIA DEVICE PLUGIN ######
 nvidia-device-plugin:
   enabled: false
+  fullnameOverride: "nvidia-device-plugin"
   resources:
     limits:
       nvidia.com/gpu: 1

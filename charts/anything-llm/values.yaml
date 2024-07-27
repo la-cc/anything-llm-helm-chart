@@ -10,7 +10,7 @@ image:
   # -- The Docker repository to pull the image from.
   repository: ghcr.io/la-cc/anything-llm
   # -- The specific tag of the image to use.
-  tag: 0.0.4
+  tag: 0.0.5
   # -- The pull policy for the image. IfNotPresent means the image will only be pulled if it is not already present locally.
   pullPolicy: IfNotPresent
 
@@ -63,18 +63,28 @@ config:
   EMBEDDING_MODEL_MAX_CHUNK_LENGTH: "8192"
   # -- Configuration for the vector db like lanceDB (in storage) or chroma DB (external), etc.
   VECTOR_DB: "lancedb"
+    # ChromaDB: Enable all below if you are using chroma.
+    # VECTOR_DB: chroma
+    # CHROMA_ENDPOINT: http://anything-llm-chromadb:8000
   WHISPER_PROVIDER: "local"
   TTS_PROVIDER: "native"
   # -- Configuration for LLM provider like ollama, azure openai, etc.
-# Ollama LLM
+# Ollama LLM and Embedding
   # LLM_PROVIDER='ollama'
-  # OLLAMA_BASE_PATH='http://svc-name.namespace.svc.cluster.local:11434'
-  # OLLAMA_MODEL_PREF='llama2'
+  # OLLAMA_BASE_PATH: 'http://svc-name.namespace.svc.cluster.local:11434'
+  # OLLAMA_MODEL_PREF: 'llama2'
   # OLLAMA_MODEL_TOKEN_LIMIT=8192
-# Azure OpenAI
+  # EMBEDDING_BASE_PATH: 'http://svc-name.namespace.svc.cluster.local:11434'
+# Azure OpenAI and Embedding
   # AZURE_OPENAI_ENDPOINT: https://replace-me.openai.azure.com/
   # OPEN_MODEL_PREF: "gpt-4o"
   # EMBEDDING_MODEL_PREF: "text-embedding-ada-002"
+  # EMBEDDING_ENGINE: 'azure'
+# OpenAI and Embedding
+  # LLM_PROVIDER: 'openai'
+  # OPEN_MODEL_PREF: 'gpt-4o-mini'
+  # EMBEDDING_MODEL_PREF: "text-embedding-ada-002"
+  # EMBEDDING_ENGINE: 'openai'
 
 
 # -- Secret configuration.
@@ -87,11 +97,10 @@ secret:
   data:
     AUTH_TOKEN: "replace-me"
     JWT_SECRET: "replace-me"
-  # ChromaDB: Enable all below if you are using chroma.
-    # VECTOR_DB: chroma
-    # CHROMA_ENDPOINT: http://anything-llm-chromadb:8000
   # Azure OpenAI
     # AZURE_OPENAI_KEY: "50f...."
+  # OpenAI
+    # OPEN_AI_KEY: "sk-...
 
 
 
@@ -144,5 +153,5 @@ nvidia-device-plugin:
     - key: "nvidia.com/gpu"
       operator: "Exists"
       effect: "NoSchedule"
-  nodeSelector:
-    nvidia.com/gpu: "true"
+  # nodeSelector:
+  #   nvidia.com/gpu: "true"

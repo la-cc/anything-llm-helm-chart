@@ -1,7 +1,7 @@
 apiVersion: v2
 name: anything-llm
 description: A Helm chartthat allows your easy way to deploy anything-llm. But also allows you to deploy anything-llm with different components like chromadb, nvidia-device-plugin, ollama, and more.
-version: 0.2.3
+version: 0.2.4
 appVersion: 0.0.5
 home: https://github.com/la-cc/anything-llm-helm-chart
 maintainers:
@@ -18,7 +18,7 @@ dependencies:
     condition: chromadb.enabled
   - name: nvidia-device-plugin
     description: A Helm chart for deploying NVIDIA Device Plugin DaemonSet to allow scheduling of GPU workloads on nodes with NVIDIA GPUs.
-    version: 0.3.2
+    version: 0.3.3
     repository: https://la-cc.github.io/nvidia-device-plugin-helm-chart
     condition: nvidia-device-plugin.enabled
   - name: ollama

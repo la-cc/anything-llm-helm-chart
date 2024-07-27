@@ -1,12 +1,12 @@
-# WIP: Anything-LLM Helm Chart
+# Anything-LLM All-in-One Helm Chart
 
 # anything-llm
 
 A Helm chartthat allows your easy way to deploy anything-llm. But also allows you to deploy anything-llm with different components like chromadb, nvidia-device-plugin, ollama, and more.
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square)
 
-![AppVersion: 0.0.4](https://img.shields.io/badge/AppVersion-0.0.4-informational?style=flat-square)
+![AppVersion: 0.0.5](https://img.shields.io/badge/AppVersion-0.0.5-informational?style=flat-square)
 
 ## Maintainers
 
@@ -17,18 +17,18 @@ A Helm chartthat allows your easy way to deploy anything-llm. But also allows yo
 
 ## Introduction - Anything-LLM Helm Chart
 
-> Thanks to the work of Mintplex-Labs for creating anything-llm! If you like it, feel free to leave a ⭐️ on the [anything-llm](https://github.com/Mintplex-Labs/anything-llm) or contribute to the project!
+> Thanks to the work of Mintplex-Labs for creating anything-llm! If you like it, feel free to leave a ⭐️ on the [anything-llm](https://github.com/Mintplex-Labs/anything-llm) or contribute to the project or booth!
 
 This chart allows you to deploy Anything-LLM on a Kubernetes cluster using the Helm package manager.
 Anything-LLM is a versatile API that can be used to interact with various language models, embedding models, and vector databases.
 
-To get and idea here a visual representation of a reduced architecture:
+To get an idea, here is a visual representation of a simplified architecture:
 
 ![Anything-LLM Architecture](/images/anything-llm-m.gif)
 
 > The full list of supported LLMs, Vector DBs and Embedder can be found under [Supported LLMs, Embedder Models, Speech models, and Vector Databases](https://github.com/Mintplex-Labs/anything-llm?tab=readme-ov-file#supported-llms-embedder-models-speech-models-and-vector-databases)
 
-The easiest way to start with anything-llm is to use the default components like:
+The easiest way to start with anything-llm is to use the default components with OpenAI API like:
 
 ![Anything-LLM Architecture](/images/anything-llm-s.gif)
 
@@ -48,14 +48,14 @@ $ helm install anything-llm anything-llm/anything-llm
 
 Or if you like you can also template the manifest and apply it directly:
 
-> **Note:** Don't template the secret, its not recommended to store the secret in the manifest. Its just for demonstration purposes and keep the process simple. Please create a secret and reference it in the values.yaml.
+> **Note:** Don't template the secret, its not recommended to store the secret in the manifest. Its just for demonstration purposes and to keep the process simple. Please create a secret and reference it in the `values.yaml`.
 
 ```console
 $ helm template anything-llm anything-llm/anything-llm -f values.yaml | kubectl apply -f -
 
 ```
 
-> The next section "Requirements" is only required, if you want replace anyrhing-llm components like llm, embedded, vector db with your own components. If you want to use the default components, you can skip the next section.
+The next section "Requirements" is only required, if you want replace anyrhing-llm components like llm, embedded, vector db with your own components. If you want to use the default components, you can skip the next section.
 
 ## Requirements
 

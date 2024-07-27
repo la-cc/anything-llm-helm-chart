@@ -1,19 +1,54 @@
-# anything-llm - WIP
+# WIP: Anything-LLM Helm Chart
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+# anything-llm
 
-A Helm chart for deploying the anything-llm application with different LLMs Backend, embedder and Vector DBs.
-This chart allows your to deploy like showing in the figure below:
+A Helm chartthat allows your easy way to deploy anything-llm. But also allows you to deploy anything-llm with different components like chromadb, nvidia-device-plugin, ollama, and more.
 
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square)
 
+![AppVersion: 0.0.4](https://img.shields.io/badge/AppVersion-0.0.4-informational?style=flat-square)
 
+## Maintainers
 
+| Name | Email | Url |
+| ---- | ------ | --- |
+| la-cc | <artem@lajko.dev> | <https://github.com/la-cc> |
+| deB4SH |  | <https://github.com/deB4SH> |
+
+## Introduction - Anything-LLM Helm Chart
+
+This chart allows you to deploy Anything-LLM on a Kubernetes cluster using the Helm package manager.
+Anything-LLM is a versatile API that can be used to interact with various language models, embedding models, and vector databases.
+
+To get and idea here a visual representation of a reduced architecture:
+
+![Anything-LLM Architecture](/images/anything-llm-m.gif)
+
+> The full list of supported LLMs, Vector DBs and Embedder can be found under [Supported LLMs, Embedder Models, Speech models, and Vector Databases](https://github.com/Mintplex-Labs/anything-llm?tab=readme-ov-file#supported-llms-embedder-models-speech-models-and-vector-databases)
+
+The easiest way to start with anything-llm is to use the default components like:
+
+This is how the ui looks like:
+
+## Installing the Chart
+
+To install the chart with the release name `anything-llm`:
+
+```console
+$ helm repo add anything-llm https://la-cc.github.io/anything-llm-helm-chart
+$ helm repo update
+$ helm install anything-llm anything-llm/anything-llm
+```
+
+> The next section "Requirements" is only required, if you want replace anyrhing-llm components like llm, embedded, vector db with your own components. If you want to use the default components, you can skip the next section.
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
 | https://amikos-tech.github.io/chromadb-chart/ | chromadb | 0.1.19 |
+| https://la-cc.github.io/nvidia-device-plugin-helm-chart | nvidia-device-plugin | 0.3.0 |
+| https://otwld.github.io/ollama-helm/ | ollama | 0.45.0 |
 
 ## Values
 
@@ -22,7 +57,9 @@ This chart allows your to deploy like showing in the figure below:
 | chromadb.chromadb.auth.enabled | bool | `false` |  |
 | chromadb.enabled | bool | `false` |  |
 | chromadb.service.type | string | `"ClusterIP"` |  |
-| config | object | `{"EMBEDDING_MODEL_MAX_CHUNK_LENGTH":"8192","EMBEDDING_MODEL_PREF":"nomic-embed-text:1.5","OLLAMA_MODEL_TOKEN_LIMIT":"8192","STORAGE_DIR":"/app/server/storage","TTS_PROVIDER":"native","VECTOR_DB":"lancedb","WHISPER_PROVIDER":"local"}` | Configuration for the application. |
+| config | object | `{"EMBEDDING_MODEL_MAX_CHUNK_LENGTH":"8192","EMBEDDING_MODEL_PREF":"nomic-embed-text:1.5","STORAGE_DIR":"/app/server/storage","TTS_PROVIDER":"native","VECTOR_DB":"lancedb","WHISPER_PROVIDER":"local"}` | Configuration for the application. |
+| config.EMBEDDING_MODEL_PREF | string | `"nomic-embed-text:1.5"` | Configuration for the embedding model. |
+| config.VECTOR_DB | string | `"lancedb"` | Configuration for the vector db like lanceDB (in storage) or chroma DB (external), etc. |
 | fullnameOverride | string | `"anything-llm"` | Override the full name of the chart. |
 | image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/la-cc/anything-llm","tag":"0.0.4"}` | Configuration for the Docker image used by the pod. |
 | image.pullPolicy | string | `"IfNotPresent"` | The pull policy for the image. IfNotPresent means the image will only be pulled if it is not already present locally. |
@@ -33,6 +70,30 @@ This chart allows your to deploy like showing in the figure below:
 | ingress.enabled | bool | `true` | Enable ingress. |
 | ingress.hosts | list | `[{"host":"llm.example.com","paths":[{"path":"/","pathType":"Prefix"}]}]` | Ingress hosts. |
 | ingress.tls | list | `[{"hosts":["llm.example.com"],"secretName":"anything-llm-tls"}]` | TLS configuration for ingress. |
+| nvidia-device-plugin.enabled | bool | `false` |  |
+| nvidia-device-plugin.nodeSelector."nvidia.com/gpu" | string | `"true"` |  |
+| nvidia-device-plugin.resources.limits."nvidia.com/gpu" | int | `1` |  |
+| nvidia-device-plugin.tolerations[0].effect | string | `"NoSchedule"` |  |
+| nvidia-device-plugin.tolerations[0].key | string | `"nvidia.com/gpu"` |  |
+| nvidia-device-plugin.tolerations[0].operator | string | `"Exists"` |  |
+| ollama.autoscaling.enabled | bool | `false` |  |
+| ollama.autoscaling.maxReplicas | int | `1` |  |
+| ollama.enabled | bool | `false` |  |
+| ollama.fullnameOverride | string | `"ollama"` |  |
+| ollama.image.repository | string | `"ollama/ollama"` |  |
+| ollama.image.tag | string | `"0.1.48"` |  |
+| ollama.ollama.gpu.enabled | bool | `true` |  |
+| ollama.ollama.models[0] | string | `"gemma2"` |  |
+| ollama.ollama.number | int | `1` |  |
+| ollama.ollama.type | string | `"nvidia"` |  |
+| ollama.persistentVolume.accessModes[0] | string | `"ReadWriteOnce"` |  |
+| ollama.persistentVolume.enabled | bool | `true` |  |
+| ollama.persistentVolume.size | string | `"50Gi"` |  |
+| ollama.persistentVolume.storageClass | string | `""` |  |
+| ollama.tolerations[0].effect | string | `"NoSchedule"` |  |
+| ollama.tolerations[0].key | string | `"ai"` |  |
+| ollama.tolerations[0].operator | string | `"Equal"` |  |
+| ollama.tolerations[0].value | string | `"true"` |  |
 | persistence | object | `{"accessMode":"ReadWriteOnce","enabled":true,"size":"10Gi","volumes":[{"mountPath":"/app/server/storage","name":"server-storage"}]}` | Persistence configuration. |
 | persistence.accessMode | string | `"ReadWriteOnce"` | Access mode for the persistent volume. |
 | persistence.enabled | bool | `true` | Enable persistence. |
@@ -50,9 +111,7 @@ This chart allows your to deploy like showing in the figure below:
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
 
-
-
-### [General Configuration for Anything-LLM](https://github.com/Mintplex-Labs/anything-llm/blob/master/docker/.env.example)
+### [General possible Configuration for Anything-LLM](https://github.com/Mintplex-Labs/anything-llm/blob/master/docker/.env.example)
 
 | **Configuration** | **Example Value**               | **Description**                                             |
 |-------------------|---------------------------------|-------------------------------------------------------------|
@@ -73,8 +132,8 @@ Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/n
 | `OPEN_MODEL_PREF`            | `'gpt-4o'`                                            | Preferred OpenAI model.                         |
 | `GEMINI_API_KEY`             | `sk-gemini-xxxx`                                      | API key for Gemini.                             |
 | `GEMINI_LLM_MODEL_PREF`      | `'gemini-pro'`                                        | Preferred Gemini model.                         |
-| `AZURE_OPENAI_ENDPOINT`      | `https://ai-openai-interface.openai.azure.com/`       | Azure OpenAI endpoint.                          |
-| `AZURE_OPENAI_KEY`           | `50f3cde88a84479881cabeb90d883ad0`                    | API key for Azure OpenAI.                       |
+| `AZURE_OPENAI_ENDPOINT`      | `https://replace-me.openai.azure.com/`       | Azure OpenAI endpoint.                          |
+| `AZURE_OPENAI_KEY`           | `50f..                         `                      | API key for Azure OpenAI.                       |
 | `ANTHROPIC_API_KEY`          | `sk-ant-xxxx`                                         | API key for Anthropic.                          |
 | `ANTHROPIC_MODEL_PREF`       | `'claude-2'`                                          | Preferred Anthropic model.                      |
 | `LMSTUDIO_BASE_PATH`         | `'http://your-server:1234/v1'`                        | Base path for LMStudio API.                     |

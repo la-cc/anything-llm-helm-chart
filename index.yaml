@@ -1,0 +1,98 @@
+apiVersion: v1
+entries:
+  anything-llm:
+  - apiVersion: v2
+    appVersion: 0.0.4
+    created: "2024-07-27T10:36:00.972073+02:00"
+    description: A Helm chartthat allows your easy way to deploy anything-llm. But also
+      allows you to deploy anything-llm with different components like chromadb,
+      nvidia-device-plugin, ollama, and more.
+    digest: d85eb2512c07b2eaf5f08d403f44d687c0a6b1c9cc78cda372f98e1900dc76b3
+    home: https://github.com/la-cc/anything-llm-helm-chart
+    keywords:
+    - private-llm
+    - kubernetes
+    - helm-chart
+    - ai
+    maintainers:
+    - email: artem@lajko.dev
+      name: la-cc
+      url: https://github.com/la-cc
+    - name: deB4SH
+      url: https://github.com/deB4SH
+    name: anything-llm
+    type: application
+    urls:
+    - https://github.com/la-cc/anything-llm-helm-chart/releases/download/0..0-helm/anything-llm-helm-chart-0.1.1.tgz
+    version: 0.1.1
+  chromadb:
+  - apiVersion: v2
+    appVersion: 0.4.14
+    created: "2024-07-27T10:36:00.973026+02:00"
+    description: A Helm chart for Chroma DB vector store
+    digest: 0ea77ff22ce8fd171036ce8e90c7dabda21744fa5f572e5f348fd65ffd6d4788
+    home: https://github.com/amikos-tech/chromadb-chart
+    icon: https://github.com/chroma-core/docs/blob/0b58523496c3e6d07aac39f066f73378ed926750/static/img/chroma.png
+    keywords:
+    - chromadb
+    - vectordb
+    - vectorstore
+    - ai/ml
+    maintainers:
+    - email: opensource@amikos.tech
+      name: Amikos Tech
+      url: https://amikos.tech
+    name: chromadb
+    sources:
+    - https://github.com/amikos-tech/chromadb-chart
+    type: application
+    urls:
+    - https://github.com/la-cc/anything-llm-helm-chart/charts/chromadb-0.1.19.tgz
+    version: 0.1.19
+  nvidia-device-plugin:
+  - apiVersion: v2
+    appVersion: v0.16.1
+    created: "2024-07-27T10:36:00.973447+02:00"
+    description: A Helm chart for deploying NVIDIA Device Plugin DaemonSet to allow
+      scheduling of GPU workloads on nodes with NVIDIA GPUs.
+    digest: d85eb2512c07b2eaf5f08d403f44d687c0a6b1c9cc78cda372f98e1900dc76b3
+    maintainers:
+    - email: artem@lajko.dev
+      name: la-cc
+      url: https://github.com/la-cc
+    name: nvidia-device-plugin
+    type: application
+    urls:
+    - https://github.com/la-cc/anything-llm-helm-chart/charts/nvidia-device-plugin-0.3.0.tgz
+    version: 0.3.0
+  ollama:
+  - annotations:
+      artifacthub.io/category: ai-machine-learning
+      artifacthub.io/changes: |
+        - kind: changed
+          description: upgrade ollama to 0.2.7
+    apiVersion: v2
+    appVersion: 0.2.7
+    created: "2024-07-27T10:36:00.974717+02:00"
+    description: Get up and running with large language models locally.
+    digest: f68b1eb15d0c579f2c8aeca0862d20ca3974c5319b9e228d3e702e1595b319ab
+    home: https://ollama.ai/
+    icon: https://ollama.ai/public/ollama.png
+    keywords:
+    - ai
+    - llm
+    - llama
+    - mistral
+    kubeVersion: ^1.16.0-0
+    maintainers:
+    - email: contact@otwld.com
+      name: Otwld
+    name: ollama
+    sources:
+    - https://github.com/ollama/ollama
+    - https://github.com/otwld/ollama-helm
+    type: application
+    urls:
+    - https://github.com/la-cc/anything-llm-helm-chart/charts/ollama-0.45.0.tgz
+    version: 0.45.0
+generated: "2024-07-27T10:36:00.971673+02:00"

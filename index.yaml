@@ -3,6 +3,37 @@ entries:
   anything-llm:
   - apiVersion: v2
     appVersion: 0.0.5
+    created: "2024-07-27T23:08:25.312428113Z"
+    dependencies:
+    - condition: chromadb.enabled
+      name: chromadb
+      repository: https://amikos-tech.github.io/chromadb-chart/
+      version: 0.1.19
+    - condition: nvidia-device-plugin.enabled
+      name: nvidia-device-plugin
+      repository: https://la-cc.github.io/nvidia-device-plugin-helm-chart
+      version: 0.3.3
+    - condition: ollama.enabled
+      name: ollama
+      repository: https://otwld.github.io/ollama-helm/
+      version: 0.45.0
+    description: A Helm chartthat allows your easy way to deploy anything-llm. But
+      also allows you to deploy anything-llm with different components like chromadb,
+      nvidia-device-plugin, ollama, and more.
+    digest: f86a47cf00ee286fe7220b5576b01a1ef88202762b203c8e15ae3510822cdb92
+    home: https://github.com/la-cc/anything-llm-helm-chart
+    maintainers:
+    - email: artem@lajko.dev
+      name: la-cc
+      url: https://github.com/la-cc
+    - name: deB4SH
+      url: https://github.com/deB4SH
+    name: anything-llm
+    urls:
+    - https://github.com/la-cc/anything-llm-helm-chart/releases/download/0.2.4-helm/anything-llm-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
+    appVersion: 0.0.5
     created: "2024-07-27T21:34:42.517542794Z"
     dependencies:
     - condition: chromadb.enabled
@@ -250,4 +281,4 @@ entries:
     urls:
     - https://github.com/la-cc/anything-llm-helm-chart/charts/ollama-0.45.0.tgz
     version: 0.45.0
-generated: "2024-07-27T21:34:42.5175776Z"
+generated: "2024-07-27T23:08:25.312450615Z"

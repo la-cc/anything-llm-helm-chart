@@ -8,9 +8,9 @@ replicaCount: 1
 # -- Configuration for the Docker image used by the pod.
 image:
   # -- The Docker repository to pull the image from.
-  repository: ghcr.io/la-cc/anything-llm
+  repository: ghcr.io/mintplex-labs/anything-llm
   # -- The specific tag of the image to use.
-  tag: 0.0.5
+  tag: 1.1.1
   # -- The pull policy for the image. IfNotPresent means the image will only be pulled if it is not already present locally.
   pullPolicy: IfNotPresent
 

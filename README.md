@@ -4,9 +4,9 @@
 
 A Helm chartthat allows your easy way to deploy anything-llm. But also allows you to deploy anything-llm with different components like chromadb, nvidia-device-plugin, ollama, and more.
 
-![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square)
 
-![AppVersion: 0.0.5](https://img.shields.io/badge/AppVersion-0.0.5-informational?style=flat-square)
+![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
 
 ## Maintainers
 
@@ -76,10 +76,10 @@ The next section "Requirements" is only required, if you want replace anyrhing-l
 | config.EMBEDDING_MODEL_PREF | string | `"nomic-embed-text:1.5"` | Configuration for the embedding model. |
 | config.VECTOR_DB | string | `"lancedb"` | Configuration for the vector db like lanceDB (in storage) or chroma DB (external), etc. |
 | fullnameOverride | string | `"anything-llm"` | Override the full name of the chart. |
-| image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/la-cc/anything-llm","tag":"0.0.5"}` | Configuration for the Docker image used by the pod. |
+| image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/mintplex-labs/anything-llm","tag":"1.1.1"}` | Configuration for the Docker image used by the pod. |
 | image.pullPolicy | string | `"IfNotPresent"` | The pull policy for the image. IfNotPresent means the image will only be pulled if it is not already present locally. |
-| image.repository | string | `"ghcr.io/la-cc/anything-llm"` | The Docker repository to pull the image from. |
-| image.tag | string | `"0.0.5"` | The specific tag of the image to use. |
+| image.repository | string | `"ghcr.io/mintplex-labs/anything-llm"` | The Docker repository to pull the image from. |
+| image.tag | string | `"1.1.1"` | The specific tag of the image to use. |
 | ingress | object | `{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt-dns","cert-manager.io/renew-before":"360h","nginx.ingress.kubernetes.io/rewrite-target":"/"},"enabled":true,"hosts":[{"host":"llm.example.com","paths":[{"path":"/","pathType":"Prefix"}]}],"tls":[{"hosts":["llm.example.com"],"secretName":"anything-llm-tls"}]}` | Ingress configuration. |
 | ingress.annotations | object | `{"cert-manager.io/cluster-issuer":"letsencrypt-dns","cert-manager.io/renew-before":"360h","nginx.ingress.kubernetes.io/rewrite-target":"/"}` | Ingress annotations. |
 | ingress.enabled | bool | `true` | Enable ingress. |

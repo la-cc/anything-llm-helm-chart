@@ -1,7 +1,7 @@
 apiVersion: v2
 name: anything-llm
 description: A Helm chart, that allows your easy way to deploy anything-llm. But also allows you to deploy anything-llm with different components like chromadb, nvidia-device-plugin, ollama, and more.
-version: 1.0.3
+version: 1.0.4
 appVersion: 1.1.1
 home: https://github.com/la-cc/anything-llm-helm-chart
 maintainers:

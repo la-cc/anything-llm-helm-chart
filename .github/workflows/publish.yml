@@ -81,6 +81,7 @@
         - name: run helm-docs
           run: |
             helm-docs --dry-run > README.md
+            helm-docs --dry-run > charts/anything-llm/README.md
         - name: Commit and push README.md
           run: |
             git checkout -B main # Switch to the main branch

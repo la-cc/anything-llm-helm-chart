@@ -1,6 +1,0 @@
-# Artifact Hub repository metadata file
-
-repositoryID: 794622b5-6e49-403e-9276-6471df8705ff # Ersetzen Sie <REPOSITORY_ID> durch die tatsächliche Repository-ID, die auf der Artifact Hub Kontrollpanelkarte Ihres Repositories angegeben ist
-owners:
-  - name: la-cc
-  - name: deB4SH

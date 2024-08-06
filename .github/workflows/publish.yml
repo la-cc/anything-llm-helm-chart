@@ -4,14 +4,13 @@
     push:
       branches:
         - main
-
   env:
     HELM_DOCS_VERSION: '1.14.2'
 
   permissions: read-all
 
   jobs:
-    helm-release:
+    publish:
       permissions:
         contents: write # for helm/chart-releaser-action to push chart release and create a release
         packages: write # for helm/chart-releaser-action to push chart release and create a release
@@ -28,50 +27,6 @@
           run: |
             git config user.name "helm-bot"
             git config user.email "helm-bot@users.noreply.github.com"
-        - name: Login to GHCR
-          uses: docker/login-action@v3
-          with:
-            registry: ghcr.io
-            username: ${{ github.repository_owner }}
-            password: ${{ secrets.GITHUB_TOKEN }}
-        - name: Run chart-releaser
-          uses: helm/chart-releaser-action@v1.6.0
-          with:
-            charts_dir: charts
-            config: './.github/configs/cr.yaml'
-          env:
-            CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            CR_RELEASE_NAME_TEMPLATE: '{{ .Version }}-helm'
-        - uses: sigstore/cosign-installer@v3.5.0
-        - name: Push chart to GHCR
-          env:
-            COSIGN_EXPERIMENTAL: 1
-          run: |
-            shopt -s nullglob
-            for pkg in .cr-release-packages/*; do
-              if [ -z "${pkg:-}" ]; then
-                break
-              fi
-              helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts |& tee .digest
-              cosign sign -y $(cat .digest | awk -F "[, ]+" '/Pushed/{print $NF}')
-            done
-
-    generate-docs:
-      needs: helm-release
-      permissions:
-        contents: write
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
-        - name: Configure Git
-          run: |
-            git config user.name "helm-bot"
-            git config user.email "helm-bot@users.noreply.github.com"
-        - name: Install Helm
-          uses: azure/setup-helm@v3
         - name: install helm-docs
           run: |
             cd /tmp
@@ -80,13 +35,41 @@
             sudo mv helm-docs /usr/local/sbin
         - name: run helm-docs
           run: |
+            helm-docs .
             helm-docs --dry-run > README.md
-            helm-docs --dry-run > charts/anything-llm/README.md
         - name: Commit and push README.md
           run: |
             git checkout -B main # Switch to the main branch
-            git add README.md charts/anything-llm/README.md
+            git add .
             git commit -m "Update README.md"
             git push origin main
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        - name: Login to GHCR
+          uses: docker/login-action@v3
+          with:
+            registry: ghcr.io
+            username: ${ GITHUB_REPOSITORY_OWNER }
+            password: ${{ secrets.GITHUB_TOKEN }}
+        - name: Run chart-releaser
+          uses: helm/chart-releaser-action@v1.6.0
+          with:
+            charts_dir: charts
+            config: './.github/configs/cr.yaml'
+          env:
+            CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+            CR_RELEASE_NAME_TEMPLATE: '{{ .Version }}-helm'
+        - uses: sigstore/cosign-installer@v3.5.0
+        - name: Push chart to GHCR
+          run: |
+            shopt -s nullglob
+            for pkg in .cr-release-packages/*; do
+              if [ -z "${pkg:-}" ]; then
+                break
+              fi
+              helm push "${pkg}" oci://ghcr.io/"${GITHUB_REPOSITORY_OWNER}"/charts |& tee .digest
+              cosign sign --yes $(cat .digest | awk -F "[, ]+" '/Pushed/{print $NF}')
+            done
+        - uses: oras-project/setup-oras@v1
+          with:
+            version: 1.2.0

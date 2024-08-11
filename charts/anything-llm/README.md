@@ -6,7 +6,7 @@ A Helm chart, that allows your easy way to deploy anything-llm. But also allows 
 
 ![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square)
 
-![AppVersion: 1.1.1](https://img.shields.io/badge/AppVersion-1.1.1-informational?style=flat-square)
+![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -62,8 +62,8 @@ The next section "Requirements" is only required, if you want replace anyrhing-l
 | Repository | Name | Version |
 |------------|------|---------|
 | https://amikos-tech.github.io/chromadb-chart/ | chromadb | 0.1.19 |
-| https://la-cc.github.io/nvidia-device-plugin-helm-chart | nvidia-device-plugin | 0.3.3 |
-| https://otwld.github.io/ollama-helm/ | ollama | 0.45.0 |
+| https://la-cc.github.io/nvidia-device-plugin-helm-chart | nvidia-device-plugin | 0.3.9 |
+| https://otwld.github.io/ollama-helm/ | ollama | 0.52.0 |
 
 ## Values
 
@@ -76,10 +76,10 @@ The next section "Requirements" is only required, if you want replace anyrhing-l
 | config.EMBEDDING_MODEL_PREF | string | `"nomic-embed-text:1.5"` | Configuration for the embedding model. |
 | config.VECTOR_DB | string | `"lancedb"` | Configuration for the vector db like lanceDB (in storage) or chroma DB (external), etc. |
 | fullnameOverride | string | `"anything-llm"` | Override the full name of the chart. |
-| image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/mintplex-labs/anything-llm","tag":"1.1.1"}` | Configuration for the Docker image used by the pod. |
+| image | object | `{"pullPolicy":"IfNotPresent","repository":"ghcr.io/mintplex-labs/anything-llm","tag":"1.2.0"}` | Configuration for the Docker image used by the pod. |
 | image.pullPolicy | string | `"IfNotPresent"` | The pull policy for the image. IfNotPresent means the image will only be pulled if it is not already present locally. |
 | image.repository | string | `"ghcr.io/mintplex-labs/anything-llm"` | The Docker repository to pull the image from. |
-| image.tag | string | `"1.1.1"` | The specific tag of the image to use. |
+| image.tag | string | `"1.2.0"` | The specific tag of the image to use. |
 | ingress | object | `{"annotations":{"cert-manager.io/cluster-issuer":"letsencrypt-dns","cert-manager.io/renew-before":"360h","nginx.ingress.kubernetes.io/rewrite-target":"/"},"enabled":true,"hosts":[{"host":"llm.example.com","paths":[{"path":"/","pathType":"Prefix"}]}],"tls":[{"hosts":["llm.example.com"],"secretName":"anything-llm-tls"}]}` | Ingress configuration. |
 | ingress.annotations | object | `{"cert-manager.io/cluster-issuer":"letsencrypt-dns","cert-manager.io/renew-before":"360h","nginx.ingress.kubernetes.io/rewrite-target":"/"}` | Ingress annotations. |
 | ingress.enabled | bool | `true` | Enable ingress. |
@@ -96,7 +96,7 @@ The next section "Requirements" is only required, if you want replace anyrhing-l
 | ollama.enabled | bool | `false` |  |
 | ollama.fullnameOverride | string | `"ollama"` |  |
 | ollama.image.repository | string | `"ollama/ollama"` |  |
-| ollama.image.tag | string | `"0.1.48"` |  |
+| ollama.image.tag | string | `"0.3.40"` |  |
 | ollama.ollama.gpu.enabled | bool | `true` |  |
 | ollama.ollama.models[0] | string | `"gemma2"` |  |
 | ollama.ollama.number | int | `1` |  |

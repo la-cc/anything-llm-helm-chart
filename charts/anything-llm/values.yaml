@@ -10,7 +10,7 @@ image:
   # -- The Docker repository to pull the image from.
   repository: ghcr.io/mintplex-labs/anything-llm
   # -- The specific tag of the image to use.
-  tag: 1.2.0
+  tag: 1.2.2
   # -- The pull policy for the image. IfNotPresent means the image will only be pulled if it is not already present locally.
   pullPolicy: IfNotPresent
 
@@ -30,6 +30,8 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: letsencrypt-dns
     cert-manager.io/renew-before: 360h
+  # -- Ingress class name.
+  ingressClassName: nginx
   # -- Ingress hosts.
   hosts:
     - host: llm.example.com
@@ -140,7 +142,7 @@ ollama:
     maxReplicas: 1
   image:
     repository: ollama/ollama
-    tag: 0.3.40
+    tag: 0.3.12
 
 ###### NVIDIA DEVICE PLUGIN ######
 nvidia-device-plugin:

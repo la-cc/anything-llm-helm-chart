@@ -271,8 +271,14 @@ sso:
         enabled: true
         size: 8Gi
         storageClass: ""
-
-
+      # -- Extra volumes for official PostgreSQL image compatibility
+      # Mount emptyDir for /var/run/postgresql to fix read-only filesystem issue
+      extraVolumes:
+        - name: postgresql-run
+          emptyDir: {}
+      extraVolumeMounts:
+        - name: postgresql-run
+          mountPath: /var/run/postgresql
 
     # -- PostgreSQL resources
     resources:
@@ -285,10 +291,15 @@ sso:
     # -- PostgreSQL architecture
     architecture: standalone
     # -- PostgreSQL image configuration
+    # Using official PostgreSQL image instead of Bitnami due to licensing changes
+    # The official PostgreSQL image (postgres:16) uses standard env vars:
+    # POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_USER
+    # Note: The Bitnami chart may need extraEnvVars to map auth values correctly
+    # If authentication fails, you may need to add extraEnvVars mapping
     image:
       registry: docker.io
-      repository: bitnami/postgresql
-      tag: "16.2.0"
+      repository: postgres
+      tag: "16"
     # -- PostgreSQL metrics
     metrics:
       enabled: false

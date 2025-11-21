@@ -107,6 +107,14 @@ postgresql:
       enabled: true
       size: 8Gi
       storageClass: ""
+    # -- Extra volumes for official PostgreSQL image compatibility
+    # Mount emptyDir for /var/run/postgresql to fix read-only filesystem issue
+    extraVolumes:
+      - name: postgresql-run
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: postgresql-run
+        mountPath: /var/run/postgresql
     # PostgreSQL resources
     resources:
       limits:
@@ -118,10 +126,12 @@ postgresql:
   # PostgreSQL architecture
   architecture: standalone
   # PostgreSQL image configuration
+  # Using official PostgreSQL image instead of Bitnami due to licensing changes
+  # Note: The official PostgreSQL image uses different env var names than Bitnami
   image:
     registry: docker.io
-    repository: bitnami/postgresql
-    tag: "16.2.0"
+    repository: postgres
+    tag: "16"
   # PostgreSQL metrics
   metrics:
     enabled: false

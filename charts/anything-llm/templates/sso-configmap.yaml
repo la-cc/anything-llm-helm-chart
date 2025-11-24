@@ -8,13 +8,18 @@ metadata:
     app.kubernetes.io/component: sso
 data:
   POSTGRES_HOST: {{ printf "%s-postgresql" .Release.Name | quote }}
+  POSTGRES_PORT: {{ .Values.sso.config.POSTGRES_PORT | default "5432" | quote }}
   POSTGRES_USER: {{ .Values.sso.config.POSTGRES_USER | quote }}
   POSTGRES_DB: {{ .Values.sso.config.POSTGRES_DB | quote }}
   KEYCLOAK_ANYTHING_LLM_ID_CLAIM: {{ .Values.sso.config.KEYCLOAK_ANYTHING_LLM_ID_CLAIM | quote }}
   KEYCLOAK_ANYTHING_LLM_USERNAME_CLAIM: {{ .Values.sso.config.KEYCLOAK_ANYTHING_LLM_USERNAME_CLAIM | quote }}
   KEYCLOAK_ANYTHING_LLM_GROUP_CLAIM: {{ .Values.sso.config.KEYCLOAK_ANYTHING_LLM_GROUP_CLAIM | quote }}
   KEYCLOAK_ANYTHING_LLM_GROUP_CORRELATIONS: {{ .Values.sso.config.KEYCLOAK_ANYTHING_LLM_GROUP_CORRELATIONS | quote }}
+  {{- if .Values.sso.config.ANYTHING_LLM_URL }}
   ANYTHING_LLM_URL: {{ .Values.sso.config.ANYTHING_LLM_URL | quote }}
+  {{- else }}
+  ANYTHING_LLM_URL: {{ printf "http://%s:%d" (include "anything-llm.fullname" .) (.Values.service.port | int) | quote }}
+  {{- end }}
   ANYTHING_LLM_ADMIN_USER: {{ .Values.sso.config.ANYTHING_LLM_ADMIN_USER | quote }}
   ANYTHING_LLM_VERIFY_SSL: {{ .Values.sso.config.ANYTHING_LLM_VERIFY_SSL | quote }}
 {{- end }} 

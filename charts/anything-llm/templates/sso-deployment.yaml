@@ -66,12 +66,16 @@ spec:
               port: http
             initialDelaySeconds: 30
             periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
           readinessProbe:
             httpGet:
               path: /monitoring/health
               port: http
             initialDelaySeconds: 5
             periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.sso.resources | nindent 12 }}
       {{- with .Values.sso.nodeSelector }}

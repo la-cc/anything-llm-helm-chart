@@ -213,6 +213,7 @@ sso:
   config:
     # -- PostgreSQL configuration
     POSTGRES_HOST: "postgresql"
+    POSTGRES_PORT: "5432"
     POSTGRES_USER: "postgres"
     POSTGRES_PASSWORD: "sso-anythingllm123"
     POSTGRES_DB: "sso_anythingllm"
@@ -222,7 +223,10 @@ sso:
     KEYCLOAK_ANYTHING_LLM_GROUP_CLAIM: "groups"
     KEYCLOAK_ANYTHING_LLM_GROUP_CORRELATIONS: "anything_llm_manager;manager,anything_llm_default;default,anything_llm_admin;admin"
     # -- AnythingLLM API configuration
-    ANYTHING_LLM_URL: "https://llm.example.com"
+    # If not set, will default to internal service URL: http://<service-name>:<service-port>
+    # For internal cluster communication, leave empty to use service name
+    # For external access via ingress, set to: "https://llm.example.com"
+    ANYTHING_LLM_URL: ""  # Empty = use internal service (http://anything-llm:3001)
     ANYTHING_LLM_ADMIN_USER: "admin"
     ANYTHING_LLM_ADMIN_PASSWORD: "administrador"
     ANYTHING_LLM_VERIFY_SSL: "false"

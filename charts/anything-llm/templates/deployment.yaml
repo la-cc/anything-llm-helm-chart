@@ -26,14 +26,17 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "anything-llm.fullname" . }}-config
-          {{- if .Values.secret.enabled }}
+            {{- if .Values.secret.enabled }}
             - secretRef:
                 name: {{ include "anything-llm.fullname" . }}-secret
-          {{- end }}
+            {{- end }}
           volumeMounts:
             {{- range .Values.persistence.volumes }}
             - name: {{ .name }}
               mountPath: {{ .mountPath }}
+              {{- if .subPath }}
+              subPath: {{ .subPath }}
+              {{- end }}
             {{- end }}
           securityContext:
             allowPrivilegeEscalation: false
@@ -45,7 +48,14 @@ spec:
       volumes:
         {{- range .Values.persistence.volumes }}
         - name: {{ .name }}
+          {{- if .claimName }}
           persistentVolumeClaim:
-            claimName: {{ .name }}
+            claimName: {{ .claimName }}
+          {{- else if .secretName }}
+          secret:
+            secretName: {{ .secretName }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
         {{- end }}
       restartPolicy: Always
